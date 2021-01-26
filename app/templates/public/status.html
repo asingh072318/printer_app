@@ -1,0 +1,56 @@
+{% extends "public/templates/public_template.html" %}
+
+{% block title %}Upload File to Print{% endblock title %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <h1>Current Queue</h1>
+            <hr>
+            <div class="overflow-auto">
+                {% if jobs %}
+                <table class="table table-responsive">
+                    <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">USERNAME</th>
+                        <th scope="col">FILENAME</th>
+                        <th scope="col">PAGES</th>
+                        <th scope="col">CREATED AT</th>
+                        <th scope="col">CONFIRMED</th>
+                        <th scope="col">STATUS</th>
+                    </thead>
+                    <tbody>
+                        {% for each_job in jobs %}
+                        <tr>
+                            <th scope="row">{{loop.index}}</th>
+                            <td>{{ each_job["username"] }}</td>
+                            <td>{{ each_job["file"] }}</td>
+                            <td>{{ each_job["pages"] }}</td>
+                            <td>{{ each_job["createdAt"] }}</td>
+                            <td>{{ each_job["confirmed"] }}</td>
+                            <td>{{ each_job["status"] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <h2>No Jobs In QUEUE</h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main %}
+
+{% block script %}
+
+<script>
+    function filesize(elem) {
+        document.cookie = `filesize=${elem.files[0].size}`
+    }
+</script>
+
+{% endblock %}
